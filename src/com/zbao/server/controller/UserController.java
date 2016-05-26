@@ -12,7 +12,7 @@ import com.zbao.server.config.ResponseConstant;
 import com.zbao.server.entity.ResponseResult;
 import com.zbao.server.entity.User;
 import com.zbao.server.service.UserService;
-import com.zbao.server.utils.JsonUtil;
+import com.zbao.server.utils.EncodeUtil;
 import com.zbao.server.utils.Md5Util;
 
 @Controller
@@ -36,26 +36,26 @@ public class UserController {
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "nickname", required = true) String nickname,
 			@RequestParam(value = "phone", required = true) String phone) {
+		String mNickname = EncodeUtil.encodeStr(nickname);
 		ResponseResult result = new ResponseResult();
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(phone)
 				|| StringUtils.isEmpty(password)) {
 			result.setCode(ResponseConstant.PARAMS_ERROR);
-			result.setMessage(ResponseConstant.PARAMS_MSG);
+			result.setMessage("参数错误");
 		}
 		User user = userService.getUserByName(username);
 		if (user != null) {
 			result.setCode(ResponseConstant.USERNAME_ERROR);
 			result.setMessage("用户名重复注册");
 		} else {
-			int index = userService.saveUser(username, password, nickname,
+			int index = userService.saveUser(username, password, mNickname,
 					phone);
 			if (index > 0) {
 				result.setCode(ResponseConstant.RESULT_SUCCESS);
-				result.setMessage(ResponseConstant.SUCCESS_MSG);
+				result.setMessage("请求成功");
 			}
 		}
 		return result;
-		// return JsonUtil.getJson(result);
 	}
 
 	/**
@@ -88,7 +88,6 @@ public class UserController {
 			result.setMessage("没有此用户信息");
 		}
 		return result;
-		// return JsonUtil.getJson(result);
 	}
 
 }
