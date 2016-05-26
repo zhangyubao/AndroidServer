@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- 配置数据库连接信息 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/model" />
+				<property name="username" value="root" />
+				<property name="password" value="zyb3680139" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<!-- 注册book_mapping.xml文件， book_mapping.xml位于me.gacl.mapping这个包下，所以resource写成com/zjlianhe/android/mapping/book_mapping.xml -->
+		<mapper resource="com/zbao/server/mapping/userMapping.xml" />
+	</mappers>
+
+</configuration>

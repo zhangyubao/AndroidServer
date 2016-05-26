@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbao.server.mapping.UserMapper">
+
+	<!--插入操作 注意：插入的时候与该处字段的顺序有关系 -->
+	<insert id="saveUser" parameterType="int">
+		insert into user
+		values(#{userid},#{username},#{phone},#{nickname},#{password})
+	</insert>
+
+	<!-- 更新操作 -->
+	<update id="updateUser" parameterType="com.zbao.server.entity.User">
+		update book set
+		userid=#{userid},phone=#{phone},nickname=#{nickname},password=#{password}
+		where username=#{username}
+	</update>
+
+	<!-- 根据用户名查询 -->
+	<select id="getuserByName" parameterType="String"
+		resultType="com.zbao.server.entity.User">
+		select * from user where username=#{username}
+	</select>
+
+
+</mapper>
